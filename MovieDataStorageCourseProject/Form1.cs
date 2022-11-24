@@ -9,9 +9,8 @@ namespace MovieDataStorageCourseProject
     public partial class MainForm : Form
     {
         private DataBase dataBase;
-
-        private List<string> selectedGenres = new List<string>();
-        private List<string> selectedCountries = new List<string>();
+        private FilmFilter filmFilter = FilmFilter.Empty;
+        private int selectionIdToSearch = -1;
 
         public MainForm()
         {
@@ -25,6 +24,7 @@ namespace MovieDataStorageCourseProject
         {
             searchRadioButton_CheckedChanged(null, null);
             UpdateSelectionListButtons();
+            selectionsPanel.Visible = selectionSearchRadioButton.Checked;
 
             foreach (DataRow row in dataBase.GetSelections().Rows)
             {
@@ -46,20 +46,30 @@ namespace MovieDataStorageCourseProject
 
         private void clearFilmFiltersButton_Click(object sender, EventArgs e)
         {
-
+            filmNameFilterTextBox.Text = "";
+            durationFromFilterNumUpDown.Value = 1;
+            durationToFilterNumUpDown.Value = 600;
+            yearFromFilterNumUpDown.Value = 1900;
+            yearToFilterNumUpDown.Value = 2030;
         }
 
         private void globalSearchRadioButton_CheckedChanged(object sender, EventArgs e)
         {
+            selectionIdToSearch = -1;
+            selectionsPanel.Visible = false;
+        }
 
+        private void selectionSearchRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            selectionsPanel.Visible = true;
         }
 
         private void selectionsListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (selectionsListBox.SelectedItem != null)
             {
-                int selectionId = ((SelectionInfo)selectionsListBox.SelectedItem).Id;
-                ShowSearchResult(dataBase.GetSelectionFilms(selectionId));
+                selectionIdToSearch = ((SelectionInfo)selectionsListBox.SelectedItem).Id;
+                ShowSearchResult(dataBase.GetFilms(filmFilter, selectionIdToSearch));
             }
             else
             {
@@ -132,24 +142,28 @@ namespace MovieDataStorageCourseProject
 
         private void Search()
         {
+            DataTable dataTable = new DataTable();
+
             if (searchAllRadioButton.Checked)
             {
-                ShowSearchResult(dataBase.GetAllFilms());
+                
             }
             else if (searchFilmsRadioButton.Checked)
             {
-                string namePart = filmNameFilterTextBox.Text;
-                int durationFrom = (int)durationFromFilterNumUpDown.Value;
-                int durationTo = (int)durationToFilterNumUpDown.Value;
-                int yearFrom = (int)yearFromFilterNumUpDown.Value;
-                int yearTo = (int)yearToFilterNumUpDown.Value;
+                filmFilter.NamePart = filmNameFilterTextBox.Text;
+                filmFilter.DurationFrom = (int)durationFromFilterNumUpDown.Value;
+                filmFilter.DurationTo = (int)durationToFilterNumUpDown.Value;
+                filmFilter.YearFrom = (int)yearFromFilterNumUpDown.Value;
+                filmFilter.YearTo = (int)yearToFilterNumUpDown.Value;
 
-                ShowSearchResult(dataBase.GetFilmsByFilter(namePart, yearFrom, yearTo));
+                dataTable = dataBase.GetFilms(filmFilter, selectionIdToSearch);
             }
             else if (searchPersonsRadioButton.Checked)
             {
 
             }
+
+            ShowSearchResult(dataTable);
         }
 
         private void ShowSearchResult(DataTable table)

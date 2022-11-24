@@ -1,6 +1,5 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
-using System.Collections.Generic;
 
 namespace MovieDataStorageCourseProject
 {
@@ -9,21 +8,69 @@ namespace MovieDataStorageCourseProject
         private const string connectionString =
             @"Data Source=DESKTOP-HBI6ESF;Initial Catalog=MovieDataStorageDB;Integrated Security=True";
 
-        public DataTable GetAllFilms()
+        public DataTable GetFilms(FilmFilter filter, int selectionId = -1)
         {
             DataSet dataSet = new DataSet();
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
-                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter("SELECT * FROM Films", connection);
-                sqlDataAdapter.Fill(dataSet);
+
+                SqlTransaction transaction = connection.BeginTransaction();
+                SqlCommand command = new SqlCommand();
+                command.Connection = connection;
+                command.Transaction = transaction;
+
+                try
+                {
+                    SqlDataAdapter adapter = new SqlDataAdapter();
+                    command.CommandText =
+                        $"SELECT * FROM Films WHERE " +
+                        $"name LIKE '%{filter.NamePart}%' AND " +
+                        $"duration BETWEEN {filter.DurationFrom} AND {filter.DurationTo} AND " +
+                        $"year_of_issue BETWEEN {filter.YearFrom} AND {filter.YearTo}";
+
+                    if (selectionId > -1)
+                    {
+                        SqlCommand tempCommand = connection.CreateCommand();
+                        tempCommand.Transaction = transaction;
+                        tempCommand.CommandText =
+                            $"SELECT film_id FROM SelectionsFilms " +
+                            $"WHERE selection_id = {selectionId}";
+
+                        SqlDataReader reader = tempCommand.ExecuteReader();
+                        string selectionFilmIds = "";
+
+                        if (reader.Read())
+                        {
+                            selectionFilmIds = reader.GetInt32(0).ToString();
+                        }
+
+                        while (reader.Read())
+                        {
+                            selectionFilmIds += ", " + reader.GetInt32(0);
+                        }
+
+                        reader.Close();
+                        command.CommandText += $" AND id IN ({selectionFilmIds})";
+                    }
+
+                    adapter.SelectCommand = command;
+                    adapter.Fill(dataSet);
+
+                    transaction.Commit();
+                }
+                catch (System.Exception)
+                {
+                    transaction.Rollback();
+                    throw;
+                }
             }
 
-            return dataSet.Tables[0];
+            return dataSet.Tables.Count > 0 ? dataSet.Tables[0] : new DataTable();
         }
 
-        public DataTable GetAllPersons()
+        public DataTable GetPersons()
         {
             DataSet dataSet = new DataSet();
 
@@ -31,25 +78,6 @@ namespace MovieDataStorageCourseProject
             {
                 connection.Open();
                 SqlDataAdapter sqlDataAdapter = new SqlDataAdapter("SELECT * FROM Persons", connection);
-                sqlDataAdapter.Fill(dataSet);
-            }
-
-            return dataSet.Tables[0];
-        }
-
-        public DataTable GetFilmsByFilter(string namePart, int yearFrom, int yearTo)
-        {
-            DataSet dataSet = new DataSet();
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-
-                string cmdText = $"SELECT * FROM Films WHERE " +
-                    $"name LIKE '%{namePart}%' AND " +
-                    $"year_of_issue BETWEEN {yearFrom} AND {yearTo}";
-
-                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(cmdText, connection);
                 sqlDataAdapter.Fill(dataSet);
             }
 
@@ -153,56 +181,6 @@ namespace MovieDataStorageCourseProject
                 string cmdText = $"INSERT INTO SelectionsFilms VALUES ({selectionId}, {filmId})";
                 new SqlCommand(cmdText, connection).ExecuteNonQuery();
             }
-        }
-
-        public DataTable GetSelectionFilms(int selectionId)
-        {
-            DataSet dataSet = new DataSet();
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-
-                SqlTransaction transaction = connection.BeginTransaction();
-                SqlCommand command = new SqlCommand();
-                command.Connection = connection;
-                command.Transaction = transaction;
-
-                try
-                {
-                    command.CommandText =
-                        $"SELECT film_id FROM SelectionsFilms " +
-                        $"WHERE selection_id = {selectionId}";
-
-                    List<int> filmIds = new List<int>();
-                    SqlDataReader reader = command.ExecuteReader();
-
-                    while (reader.Read())
-                    {
-                        filmIds.Add(reader.GetInt32(0));
-                    }
-
-                    reader.Close();
-
-                    SqlDataAdapter adapter = new SqlDataAdapter();
-
-                    foreach (int id in filmIds)
-                    {
-                        command.CommandText = $"SELECT * FROM Films WHERE id = {id}";
-                        adapter.SelectCommand = command;
-                        adapter.Fill(dataSet);
-                    }
-
-                    transaction.Commit();
-                }
-                catch (System.Exception)
-                {
-                    transaction.Rollback();
-                    throw;
-                }
-            }
-
-            return dataSet.Tables.Count > 0 ? dataSet.Tables[0] : new DataTable();
         }
     }
 }

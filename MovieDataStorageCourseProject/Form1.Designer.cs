@@ -534,6 +534,7 @@ namespace MovieDataStorageCourseProject
             this.selectionSearchRadioButton.TabIndex = 4;
             this.selectionSearchRadioButton.Text = "Подборки";
             this.selectionSearchRadioButton.UseVisualStyleBackColor = true;
+            this.selectionSearchRadioButton.CheckedChanged += new System.EventHandler(this.selectionSearchRadioButton_CheckedChanged);
             // 
             // globalSearchRadioButton
             // 

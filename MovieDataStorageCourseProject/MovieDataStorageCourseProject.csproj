@@ -53,6 +53,7 @@
     <Compile Include="CardForm.Designer.cs">
       <DependentUpon>CardForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="FilmFilter.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
