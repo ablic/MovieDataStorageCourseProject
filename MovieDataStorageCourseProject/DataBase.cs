@@ -9,6 +9,34 @@ namespace MovieDataStorageCourseProject
         private const string connectionString =
             @"Data Source=DESKTOP-HBI6ESF;Initial Catalog=MovieDataStorageDB;Integrated Security=True";
 
+        public DataTable GetAllFilms()
+        {
+            DataSet dataSet = new DataSet();
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter("SELECT * FROM Films", connection);
+                sqlDataAdapter.Fill(dataSet);
+            }
+
+            return dataSet.Tables[0];
+        }
+
+        public DataTable GetAllPersons()
+        {
+            DataSet dataSet = new DataSet();
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter("SELECT * FROM Persons", connection);
+                sqlDataAdapter.Fill(dataSet);
+            }
+
+            return dataSet.Tables[0];
+        }
+
         public DataTable GetFilmsByFilter(string namePart, int yearFrom, int yearTo)
         {
             DataSet dataSet = new DataSet();
@@ -74,6 +102,19 @@ namespace MovieDataStorageCourseProject
             }
 
             return id;
+        }
+
+        public void RenameSelection(int id, string name)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                SqlCommand command = connection.CreateCommand();
+
+                command.CommandText = $"UPDATE Selections SET name = '{name}' WHERE id = {id}";
+                command.ExecuteNonQuery();
+            }
         }
 
         public void DeleteSelection(SelectionInfo selectionInfo)

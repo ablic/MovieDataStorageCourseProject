@@ -7,21 +7,16 @@ namespace MovieDataStorageCourseProject
     {
         public string EnteredName { get; private set; }
 
-        public SelectionNameChangeForm()
+        public SelectionNameChangeForm(string initialName = "")
         {
             InitializeComponent();
+            nameTextBox.Text = initialName;
         }
 
         private void ConfirmNameButton_Click(object sender, EventArgs e)
         {
-            EnteredName = NameTextBox.Text;
+            EnteredName = nameTextBox.Text;
             DialogResult = DialogResult.OK;
-            Close();
-        }
-
-        private void CancelButton_Click(object sender, EventArgs e)
-        {
-            DialogResult = DialogResult.Cancel;
             Close();
         }
     }

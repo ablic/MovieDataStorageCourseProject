@@ -86,7 +86,7 @@ namespace MovieDataStorageCourseProject.UserControls
             this.Controls.Add(this.PictureBox);
             this.Cursor = System.Windows.Forms.Cursors.Hand;
             this.Name = "PreviewCard";
-            this.Size = new System.Drawing.Size(533, 98);
+            this.Size = new System.Drawing.Size(580, 100);
             this.Click += new System.EventHandler(this.FilmSearchResultElement_Click);
             ((System.ComponentModel.ISupportInitialize)(this.PictureBox)).EndInit();
             this.ResumeLayout(false);

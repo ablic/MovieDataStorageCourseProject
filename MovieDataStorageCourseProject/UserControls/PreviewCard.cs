@@ -18,7 +18,7 @@ namespace MovieDataStorageCourseProject.UserControls
 
             TitleLabel1.Text = name;
             TitleLabel2.Text = yearOfIssue.ToString();
-            PictureBox.Image = PictureBox.InitialImage;
+            PictureBox.Image = PictureBox.InitialImage; 
         }
 
         private void FilmSearchResultElement_Click(object sender, System.EventArgs e)

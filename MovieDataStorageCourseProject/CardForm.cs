@@ -7,9 +7,9 @@ namespace MovieDataStorageCourseProject
         public CardForm(string name, int yearOfIssue)
         {
             InitializeComponent();
-            PosterPictureBox.Image = PosterPictureBox.InitialImage;
-            NameLabel.Text = name;
-            YearOfIssueLabel.Text = yearOfIssue.ToString();
+            PictureBox.Image = PictureBox.InitialImage;
+            //NameLabel.Text = name;
+            //YearOfIssueLabel.Text = yearOfIssue.ToString();
         }
     }
 }

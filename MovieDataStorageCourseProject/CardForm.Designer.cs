@@ -29,78 +29,101 @@ namespace MovieDataStorageCourseProject
         /// </summary>
         private void InitializeComponent()
         {
-            this.PosterPictureBox = new System.Windows.Forms.PictureBox();
-            this.NameLabel = new System.Windows.Forms.Label();
-            this.YearOfIssueLabel = new System.Windows.Forms.Label();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.listBox2 = new System.Windows.Forms.ListBox();
-            ((System.ComponentModel.ISupportInitialize)(this.PosterPictureBox)).BeginInit();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CardForm));
+            this.PictureBox = new System.Windows.Forms.PictureBox();
+            this.LinksListBox = new System.Windows.Forms.ListBox();
+            this.LinksTitleLabel = new System.Windows.Forms.Label();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.MajorTitleLabel = new System.Windows.Forms.Label();
+            this.MinorTitleLabel = new System.Windows.Forms.Label();
+            this.RatingLabel = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureBox)).BeginInit();
             this.SuspendLayout();
             // 
-            // PosterPictureBox
+            // PictureBox
             // 
-            this.PosterPictureBox.Dock = System.Windows.Forms.DockStyle.Left;
-            this.PosterPictureBox.Location = new System.Drawing.Point(0, 0);
-            this.PosterPictureBox.Name = "PosterPictureBox";
-            this.PosterPictureBox.Size = new System.Drawing.Size(302, 450);
-            this.PosterPictureBox.TabIndex = 0;
-            this.PosterPictureBox.TabStop = false;
+            this.PictureBox.Dock = System.Windows.Forms.DockStyle.Left;
+            this.PictureBox.InitialImage = ((System.Drawing.Image)(resources.GetObject("PictureBox.InitialImage")));
+            this.PictureBox.Location = new System.Drawing.Point(0, 0);
+            this.PictureBox.Name = "PictureBox";
+            this.PictureBox.Size = new System.Drawing.Size(300, 450);
+            this.PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.PictureBox.TabIndex = 0;
+            this.PictureBox.TabStop = false;
             // 
-            // NameLabel
+            // LinksListBox
             // 
-            this.NameLabel.AutoSize = true;
-            this.NameLabel.Location = new System.Drawing.Point(309, 13);
-            this.NameLabel.Name = "NameLabel";
-            this.NameLabel.Size = new System.Drawing.Size(72, 17);
-            this.NameLabel.TabIndex = 1;
-            this.NameLabel.Text = "Название";
+            this.LinksListBox.FormattingEnabled = true;
+            this.LinksListBox.ItemHeight = 16;
+            this.LinksListBox.Location = new System.Drawing.Point(605, 106);
+            this.LinksListBox.Name = "LinksListBox";
+            this.LinksListBox.Size = new System.Drawing.Size(183, 324);
+            this.LinksListBox.TabIndex = 9;
             // 
-            // YearOfIssueLabel
+            // LinksTitleLabel
             // 
-            this.YearOfIssueLabel.AutoSize = true;
-            this.YearOfIssueLabel.Location = new System.Drawing.Point(312, 34);
-            this.YearOfIssueLabel.Name = "YearOfIssueLabel";
-            this.YearOfIssueLabel.Size = new System.Drawing.Size(40, 17);
-            this.YearOfIssueLabel.TabIndex = 2;
-            this.YearOfIssueLabel.Text = "2003";
+            this.LinksTitleLabel.AutoSize = true;
+            this.LinksTitleLabel.Location = new System.Drawing.Point(605, 70);
+            this.LinksTitleLabel.Name = "LinksTitleLabel";
+            this.LinksTitleLabel.Size = new System.Drawing.Size(36, 17);
+            this.LinksTitleLabel.TabIndex = 10;
+            this.LinksTitleLabel.Text = "links";
             // 
-            // listBox1
+            // tableLayoutPanel1
             // 
-            this.listBox1.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.listBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 16;
-            this.listBox1.Items.AddRange(new object[] {
-            "fadsfsad",
-            "asdfasdf",
-            "asdfadsfd"});
-            this.listBox1.Location = new System.Drawing.Point(312, 55);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(279, 384);
-            this.listBox1.TabIndex = 3;
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(306, 70);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(293, 368);
+            this.tableLayoutPanel1.TabIndex = 11;
             // 
-            // listBox2
+            // MajorTitleLabel
             // 
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.ItemHeight = 16;
-            this.listBox2.Location = new System.Drawing.Point(598, 55);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(190, 388);
-            this.listBox2.TabIndex = 4;
+            this.MajorTitleLabel.AutoSize = true;
+            this.MajorTitleLabel.Location = new System.Drawing.Point(306, 9);
+            this.MajorTitleLabel.Name = "MajorTitleLabel";
+            this.MajorTitleLabel.Size = new System.Drawing.Size(98, 17);
+            this.MajorTitleLabel.TabIndex = 12;
+            this.MajorTitleLabel.Text = "MAJOR TITLE";
             // 
-            // FilmInfoForm
+            // MinorTitleLabel
+            // 
+            this.MinorTitleLabel.AutoSize = true;
+            this.MinorTitleLabel.Location = new System.Drawing.Point(306, 26);
+            this.MinorTitleLabel.Name = "MinorTitleLabel";
+            this.MinorTitleLabel.Size = new System.Drawing.Size(69, 17);
+            this.MinorTitleLabel.TabIndex = 13;
+            this.MinorTitleLabel.Text = "minor title";
+            // 
+            // RatingLabel
+            // 
+            this.RatingLabel.AutoSize = true;
+            this.RatingLabel.Location = new System.Drawing.Point(605, 9);
+            this.RatingLabel.Name = "RatingLabel";
+            this.RatingLabel.Size = new System.Drawing.Size(64, 17);
+            this.RatingLabel.TabIndex = 14;
+            this.RatingLabel.Text = "rating 99";
+            // 
+            // CardForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.listBox2);
-            this.Controls.Add(this.listBox1);
-            this.Controls.Add(this.YearOfIssueLabel);
-            this.Controls.Add(this.NameLabel);
-            this.Controls.Add(this.PosterPictureBox);
-            this.Name = "FilmInfoForm";
+            this.Controls.Add(this.RatingLabel);
+            this.Controls.Add(this.MinorTitleLabel);
+            this.Controls.Add(this.MajorTitleLabel);
+            this.Controls.Add(this.tableLayoutPanel1);
+            this.Controls.Add(this.LinksTitleLabel);
+            this.Controls.Add(this.LinksListBox);
+            this.Controls.Add(this.PictureBox);
+            this.Name = "CardForm";
             this.Text = "FilmInfoForm";
-            ((System.ComponentModel.ISupportInitialize)(this.PosterPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -108,10 +131,12 @@ namespace MovieDataStorageCourseProject
 
         #endregion
 
-        private System.Windows.Forms.PictureBox PosterPictureBox;
-        private System.Windows.Forms.Label NameLabel;
-        private System.Windows.Forms.Label YearOfIssueLabel;
-        private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.ListBox listBox2;
+        private System.Windows.Forms.PictureBox PictureBox;
+        private System.Windows.Forms.ListBox LinksListBox;
+        private System.Windows.Forms.Label LinksTitleLabel;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Label MajorTitleLabel;
+        private System.Windows.Forms.Label MinorTitleLabel;
+        private System.Windows.Forms.Label RatingLabel;
     }
 }
